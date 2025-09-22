@@ -52,13 +52,14 @@ def base():
         old_name = session.get('name')
         # form.name.data = ''
         if 'utoronto' in form.email.data.lower():
-            session['name'] = form.name
-            session['email']= form.email
+            session['name'] = form.name.data
+            session['email']= form.email.data
         else:
             flash('Please enter a UofT email address')
         if old_name is not None and old_name != form.name.data:
             flash('Looks like you have changed your name!')
         session['name'] = form.name.data
+        session['email']= form.email.data
         return redirect(url_for('base'))
     # return render_template("index.html", name = "Nia", form = form, current_time = datetime.utcnow())
     return render_template("index.html", name=session.get('name', None), email=session.get('email'),form = form, current_time = datetime.utcnow())

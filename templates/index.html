@@ -6,10 +6,21 @@
 
  {% block page_content %}
  <div class = "page_header">
-    <h1>Hello, {% if name %}{{ name }}{% else %}Stranger{% endif%}!
-        {% if email %}Your UofT email is{{ email }}{% endif %}!
+    <h1>Hello, {% if name %}{{ name }}{% else %}Stranger {% endif%}! Welcome to PRA2 Docker!
+        {% if email and email.endswith('utoronto.ca')  %}Your UofT email is {{ email }}
+        {% else %}Put your U of T email here{% endif %}
     </h1>
    
  </div>
  {{ wtf.quick_form(form) }}
  {% endblock %}
+
+ <div class="page_header">
+  {% if not name %}
+    <h1>Hello, Stranger!</h1>
+  {% elif email and email.endswith('utoronto.ca') %}
+    <h1>Hello, {{ name }} ({{ email }})!</h1>
+  {% else %}
+    <h1>Hello, {{ name }}, put your UofT email!</h1>
+  {% endif %}
+</div>
